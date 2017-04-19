@@ -43,9 +43,6 @@ d3.tsv('data.tsv', function(data) {
 		.attr('transform', 'translate('+ margin.left +', '+ margin.top +')')
 		.selectAll('rect').data(bardata)
 		.enter().append('rect')
-			/*.style('fill', function(d,i) {
-				return colorScale(i);
-			})*/
 			.attr("fill", function(d) {
 				if (d < 50) {
 					return "#b71c1c";
@@ -121,8 +118,8 @@ d3.tsv('data.tsv', function(data) {
 	var hAxis = d3.svg.axis()
 		.scale(xScale)
 		.orient('bottom')
-		.tickValues(xScale.domain().filter(function(d, i) {
-			return !(i % (bardata.length/5));
+		.tickValues(xScale.domain().filter(function(d) {
+			return countrynames;
 		}))
 
 	var hGuide = d3.select('svg').append('g')
