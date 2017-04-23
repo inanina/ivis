@@ -26,9 +26,7 @@ d3.tsv('data.tsv', function(data) {
 			.range([0, height]);
 
 	var xScale = d3.scale.ordinal()
-			.domain(data.map(function(d, i) {
-				return countrynames[i];
-			}))
+			.domain(d3.range(0, bardata.length))
 			.rangeBands([0, width], 0.1)
 
 	var tooltip = d3.select('body').append('div')
@@ -120,10 +118,9 @@ d3.tsv('data.tsv', function(data) {
 	var hAxis = d3.svg.axis()
 		.scale(xScale)
 		.orient('bottom')
-		/*.tickValues(xScale.domain().filter(function(d) {
-			return countrynames;
-		}))*/
-		//.ticks(bardata.length-1)
+        .tickValues(xScale.domain().filter(function(d, i) {
+            return !(i % (bardata.length/5));
+        }))
 
 	var hGuide = d3.select('svg').append('g')
 		hAxis(hGuide)
